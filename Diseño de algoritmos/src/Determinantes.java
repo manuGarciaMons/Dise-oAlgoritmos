@@ -2,7 +2,20 @@ import java.util.Scanner;
 
 class Determinantes
 {
- public static void main(String args[]) {
+	
+
+   // private double[][] matriz;
+	
+	int matriz [][];
+    
+ public Determinantes(int[][] matriz) {
+	}
+
+public static void main(String args[]) {
+	
+	 long TInicio, TFin, tiempo; //Variables para determinar el tiempo de ejecución
+	 TInicio = System.currentTimeMillis(); //Tomamos la hora en que inicio el algoritmo y la almacenamos en la variable inicio
+	  
  
  Scanner entrada = new Scanner(System.in);
  
@@ -18,8 +31,22 @@ class Determinantes
   }
 
   imprimirMatriz(matriz);
-
+  System.out.println("tiempo ejecucion:");
+  System.out.println(System.currentTimeMillis()-TInicio);
   System.out.println(determinante(matriz));
+  
+  
+  System.out.println("*****************************************");
+  imprimirMatriz(matriz);
+  System.out.println("tiempo ejecucion:");
+  System.out.println(System.currentTimeMillis()-TInicio);
+  System.out.println(determinanteGauss(matriz));
+  
+
+  
+  TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
+  tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
+  System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //
  }
 
  public static void imprimirMatriz(int matriz[][])
@@ -57,6 +84,17 @@ class Determinantes
   return submatriz;
  }
 
+ 
+
+ /**
+  * Constructor for a GaussJordan object. Takes in a two dimensional double
+  * array holding the matrix.
+  *
+  * @param matrix A double[][] containing the augmented matrix
+ * @return 
+  */
+
+ 
  public static int determinante(int matriz[][])
  {
   int deter=0;
@@ -72,4 +110,40 @@ class Determinantes
   }else
    return matriz[0][0] * matriz[1][1] - matriz[0][1] * matriz[1][0];
  }
-}
+ 
+ 
+ public static int determinanteGauss(int[][] matriz)
+ {
+     int det;
+     if(matriz.length==2)
+     {
+         det=(matriz[0][0]*matriz[1][1])-(matriz[1][0]*matriz[0][1]);
+         return det;
+     }
+     int suma=0;
+     for(int i=0; i<matriz.length; i++){
+   int[][] nm=new int[matriz.length-1][matriz.length-1];
+         for(int j=0; j<matriz.length; j++){
+             if(j!=i){
+                 for(int k=1; k<matriz.length; k++){
+                 int indice=-1;
+                 if(j<i)
+                 indice=j;
+                 else if(j>i)
+                 indice=j-1;
+                 nm[indice][k-1]=matriz[j][k];
+                 }
+             }
+         }
+         if(i%2==0)
+         suma+=matriz[i][0] * determinanteGauss(nm);
+         else
+         suma-=matriz[i][0] * determinanteGauss(nm);
+     }
+     return suma;
+ }
+
+
+ 
+	}
+
