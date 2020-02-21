@@ -3,7 +3,10 @@ import java.util.Scanner;
 class Determinantes
 {
 	
-
+   // algunas de las conclusiones que se pueden sacar es que el algoritmo 1, es mas eficiente que el 2.
+	// es importante aclarar que en ambos metodos en los que la solucion es trabajar con una matrix nxn, se utiliza la 
+	// recursividad, si embargo varian algunos recorridos en el algoritmo.
+	
    // private double[][] matriz;
 	
 	int matriz [][];
