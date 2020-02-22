@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
-class Determinantes
+public class Determinantes
 {
 	
    // algunas de las conclusiones que se pueden sacar es que el algoritmo 1, es mas eficiente que el 2.
 	// es importante aclarar que en ambos metodos en los que la solucion es trabajar con una matrix nxn, se utiliza la 
 	// recursividad, si embargo varian algunos recorridos en el algoritmo.
-	
+	//El recorrido de ambos algoritmos se basa en dividir la matriz nxn en sub matrices que permiten ser evaluadas
+	// por medio de las posiciones que abarcan en el arreglo.
    // private double[][] matriz;
 	
 	int matriz [][];
@@ -52,6 +53,8 @@ public static void main(String args[]) {
   System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //
  }
 
+
+// imprime la matriz en pantalla, de acuerdo al tamaño seleccionado por pantalla
  public static void imprimirMatriz(int matriz[][])
  {
   int i, j;
@@ -64,6 +67,8 @@ public static void main(String args[]) {
   System.out.println();
  }
 
+ 
+ //para el primer algoritmo, partir la matriz en en pedazos de 4 posiciones
  public static int[][] subMatrices(int matriz[][], int x, int y)
  {
   int submatriz[][] = new int[matriz.length-1][matriz.length-1];
@@ -90,11 +95,10 @@ public static void main(String args[]) {
  
 
  /**
-  * Constructor for a GaussJordan object. Takes in a two dimensional double
-  * array holding the matrix.
+ 
   *
-  * @param matrix A double[][] containing the augmented matrix
- * @return 
+  * @param matrix A double[][] 
+ * @return determinante de la matriz
   */
 
  
@@ -125,7 +129,7 @@ public static void main(String args[]) {
      }
      int suma=0;
      for(int i=0; i<matriz.length; i++){
-   int[][] nm=new int[matriz.length-1][matriz.length-1];
+   int[][] nm =new int[matriz.length-1][matriz.length-1];
          for(int j=0; j<matriz.length; j++){
              if(j!=i){
                  for(int k=1; k<matriz.length; k++){
