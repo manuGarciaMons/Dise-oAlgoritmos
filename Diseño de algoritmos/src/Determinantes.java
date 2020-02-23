@@ -1,13 +1,10 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Determinantes
+class Determinantes
 {
 	
-   // algunas de las conclusiones que se pueden sacar es que el algoritmo 1, es mas eficiente que el 2.
-	// es importante aclarar que en ambos metodos en los que la solucion es trabajar con una matrix nxn, se utiliza la 
-	// recursividad, si embargo varian algunos recorridos en el algoritmo.
-	//El recorrido de ambos algoritmos se basa en dividir la matriz nxn en sub matrices que permiten ser evaluadas
-	// por medio de las posiciones que abarcan en el arreglo.
+
    // private double[][] matriz;
 	
 	int matriz [][];
@@ -22,39 +19,67 @@ public static void main(String args[]) {
 	  
  
  Scanner entrada = new Scanner(System.in);
+ Scanner sn = new Scanner(System.in);
  
-  System.out.println("Introduzca el valor deseado para la matriz");
-  int tamanno = entrada.nextInt(), i, j;
-  int matriz[][] = new int[tamanno][tamanno];
-  for (i=0;i<tamanno;i++)
+ System.out.println("Introduzca el valor deseado para la matriz");
+ int tamanno = entrada.nextInt(), i, j;
+ int matriz[][] = new int[tamanno][tamanno];
+ for (i=0;i<tamanno;i++)
+ {
+  for (j=0;j<tamanno;j++)
   {
-   for (j=0;j<tamanno;j++)
-   {
-    matriz[i][j] = (int)(Math.random()*10)-5;
-   }
+   matriz[i][j] = (int)(Math.random()*10)-5;
   }
+ }
 
-  imprimirMatriz(matriz);
-  System.out.println("tiempo ejecucion:");
-  System.out.println(System.currentTimeMillis()-TInicio);
-  System.out.println(determinante(matriz));
-  
-  
-  System.out.println("*****************************************");
-  imprimirMatriz(matriz);
-  System.out.println("tiempo ejecucion:");
-  System.out.println(System.currentTimeMillis()-TInicio);
-  System.out.println(determinanteGauss(matriz));
-  
+ 
+ 
+ boolean salir = false;
+ int opcion; //Guardaremos la opcion del usuario
 
+ while (!salir) {
+
+     System.out.println("1. Solucionar determinante por recursividad");
+     System.out.println("2. Solucionar determinante por Gauss");
+     System.out.println("3. Salir");
+
+     try {
+
+         System.out.println("Escribe una de las opciones");
+         opcion = sn.nextInt();
+
+         switch (opcion) {
+             case 1:
+                 System.out.println("Derminate por metodo recursivo");
+                 imprimirMatriz(matriz);
+                 System.out.println("tiempo ejecucion:");
+                 System.out.println(System.currentTimeMillis()-TInicio);
+                 System.out.println(determinante(matriz));
+                 break;
+             case 2:
+                 System.out.println("Determinante por metodo de Gauss");
+                 imprimirMatriz(matriz);
+                 System.out.println("tiempo ejecucion:");
+                 System.out.println(System.currentTimeMillis()-TInicio);
+                 System.out.println(determinanteGauss(matriz));
+                 break;
+             case 3:
+                 salir = true;
+                 break;
+             default:
+                 System.out.println("");
+         }
+     } catch (InputMismatchException e) {
+         System.out.println("Debes insertar un número");
+         sn.next();
+     }
+ }
   
   TFin = System.currentTimeMillis(); //Tomamos la hora en que finalizó el algoritmo y la almacenamos en la variable T
   tiempo = TFin - TInicio; //Calculamos los milisegundos de diferencia
   System.out.println("Tiempo de ejecución en milisegundos: " + tiempo); //
  }
 
-
-// imprime la matriz en pantalla, de acuerdo al tamaño seleccionado por pantalla
  public static void imprimirMatriz(int matriz[][])
  {
   int i, j;
@@ -67,8 +92,6 @@ public static void main(String args[]) {
   System.out.println();
  }
 
- 
- //para el primer algoritmo, partir la matriz en en pedazos de 4 posiciones
  public static int[][] subMatrices(int matriz[][], int x, int y)
  {
   int submatriz[][] = new int[matriz.length-1][matriz.length-1];
@@ -95,10 +118,11 @@ public static void main(String args[]) {
  
 
  /**
- 
+  * Constructor for a GaussJordan object. Takes in a two dimensional double
+  * array holding the matrix.
   *
-  * @param matrix A double[][] 
- * @return determinante de la matriz
+  * @param matrix A double[][] containing the augmented matrix
+ * @return 
   */
 
  
@@ -129,7 +153,7 @@ public static void main(String args[]) {
      }
      int suma=0;
      for(int i=0; i<matriz.length; i++){
-   int[][] nm =new int[matriz.length-1][matriz.length-1];
+   int[][] nm=new int[matriz.length-1][matriz.length-1];
          for(int j=0; j<matriz.length; j++){
              if(j!=i){
                  for(int k=1; k<matriz.length; k++){
@@ -152,5 +176,5 @@ public static void main(String args[]) {
 
 
  
-	}
+}
 
